@@ -9,13 +9,8 @@
   "orm": "drizzle",
   "backend": "elysia",
   "runtime": "bun",
-  "frontend": [
-    "tanstack-start"
-  ],
-  "addons": [
-    "husky",
-    "oxlint"
-  ],
+  "frontend": ["tanstack-start"],
+  "addons": ["husky", "oxlint"],
   "examples": [],
   "auth": "none",
   "packageManager": "bun",

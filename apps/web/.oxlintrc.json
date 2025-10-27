@@ -1,5 +1,12 @@
 {
-  "plugins": ["unicorn", "typescript", "oxc"],
+  "plugins": [
+    "unicorn",
+    "typescript",
+    "oxc",
+    "react",
+    "jsx-a11y",
+    "react-perf"
+  ],
   "categories": {},
   "rules": {
     "for-direction": "warn",
@@ -111,9 +118,6 @@
       "polymorphicPropName": null,
       "components": {},
       "attributes": {}
-    },
-    "next": {
-      "rootDir": []
     },
     "react": {
       "formComponents": [],
