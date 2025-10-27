@@ -1,2 +1,5 @@
 [install]
 linker = "isolated"
+
+[test]
+preload = ["./apps/web/happydom.ts", "./apps/web/testing-library.ts"]

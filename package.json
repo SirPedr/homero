@@ -20,7 +20,6 @@
     "dev": "bun run --filter '*' dev",
     "build": "bun run --filter '*' build",
     "check-types": "bun run --filter '*' check-types",
-    "dev:native": "bun run --filter native dev",
     "dev:web": "bun run --filter web dev",
     "dev:server": "bun run --filter server dev",
     "db:push": "bun run --filter @homero/db db:push",
@@ -30,7 +29,9 @@
     "db:start": "bun run --filter @homero/db db:start",
     "db:watch": "bun run --filter @homero/db db:watch",
     "db:stop": "bun run --filter @homero/db db:stop",
-    "db:down": "bun run --filter @homero/db db:down"
+    "db:down": "bun run --filter @homero/db db:down",
+    "test:web": "bun test --filter web",
+    "test:server": "bun test --filter server"
   },
   "dependencies": {
     "dotenv": "^17.2.2",
