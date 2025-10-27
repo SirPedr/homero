@@ -1,0 +1,50 @@
+{
+  "name": "homero",
+  "private": true,
+  "type": "module",
+  "workspaces": {
+    "packages": [
+      "apps/*",
+      "packages/*"
+    ],
+    "catalog": {
+      "dotenv": "^17.2.2",
+      "zod": "^4.1.11",
+      "typescript": "^5.8.2",
+      "tsdown": "^0.15.5"
+    }
+  },
+  "scripts": {
+    "prepare": "husky",
+    "check": "oxlint",
+    "dev": "bun run --filter '*' dev",
+    "build": "bun run --filter '*' build",
+    "check-types": "bun run --filter '*' check-types",
+    "dev:native": "bun run --filter native dev",
+    "dev:web": "bun run --filter web dev",
+    "dev:server": "bun run --filter server dev",
+    "db:push": "bun run --filter @homero/db db:push",
+    "db:studio": "bun run --filter @homero/db db:studio",
+    "db:generate": "bun run --filter @homero/db db:generate",
+    "db:migrate": "bun run --filter @homero/db db:migrate",
+    "db:start": "bun run --filter @homero/db db:start",
+    "db:watch": "bun run --filter @homero/db db:watch",
+    "db:stop": "bun run --filter @homero/db db:stop",
+    "db:down": "bun run --filter @homero/db db:down"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.2",
+    "zod": "^4.1.11"
+  },
+  "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.2",
+    "oxlint": "^1.12.0",
+    "tsdown": "^0.15.5",
+    "@types/bun": "^1.2.6"
+  },
+  "lint-staged": {
+    "**/*.{js,mjs,cjs,jsx,ts,mts,cts,tsx,vue,astro,svelte}": "oxlint"
+  },
+  "packageManager": "bun@1.3.1"
+}
