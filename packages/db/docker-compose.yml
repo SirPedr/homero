@@ -19,5 +19,22 @@ services:
       retries: 5
     restart: unless-stopped
 
+  postgres-test:
+    image: postgres
+    container_name: homero-postgres-test
+    environment:
+      POSTGRES_DB: homero_test
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5433:5432"
+    tmpfs:
+      - /var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 3s
+      retries: 3
+
 volumes:
   homero_postgres_data:

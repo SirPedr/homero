@@ -1,15 +1,19 @@
+import { cors } from "@elysiajs/cors";
 import "dotenv/config";
 import { Elysia } from "elysia";
-import { cors } from "@elysiajs/cors";
+import { registerHandler } from "./modules/auth/handlers/register";
 
-const app = new Elysia()
+export const app = new Elysia()
   .use(
     cors({
       origin: process.env.CORS_ORIGIN || "",
       methods: ["GET", "POST", "OPTIONS"]
     })
   )
-  .get("/", () => "Abobra Server is up and running!")
-  .listen(3000, () => {
+  .use(registerHandler);
+
+if (import.meta.main) {
+  app.listen(3000, () => {
     console.log("Server is running on http://localhost:3000");
   });
+}
