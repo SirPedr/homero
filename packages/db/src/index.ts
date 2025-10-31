@@ -1,6 +1,7 @@
 import { drizzle } from "drizzle-orm/node-postgres";
 import * as schema from "./schema";
 
+export * from "drizzle-orm";
 export * from "./schema";
 export * from "./test-db";
 export { NodePgDatabase } from "drizzle-orm/node-postgres";

@@ -8,5 +8,6 @@ export const usersTable = pgTable("users", {
   email: varchar("email", { length: 255 }).notNull().unique(),
   username: varchar("username", { length: 255 }).notNull().unique(),
   passwordHash: text("password_hash").notNull(),
-  createdAt: timestamp("created_at", { mode: "date" }).notNull().defaultNow()
+  createdAt: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
+  refreshToken: text("refresh_token")
 });
