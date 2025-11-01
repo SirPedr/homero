@@ -1,22 +1,36 @@
 import { drizzle } from "drizzle-orm/node-postgres";
 import { migrate } from "drizzle-orm/node-postgres/migrator";
-import pg from "pg";
 import * as schema from "./schema";
-
-const { Pool } = pg;
+import { PostgreSqlContainer } from "@testcontainers/postgresql";
+import { Wait } from "testcontainers";
 
 export async function createTestDb() {
-  const pool = new Pool({
-    connectionString: process.env.TEST_DATABASE_URL || process.env.DATABASE_URL
-  });
+  console.log("Starting PostgreSQL test container...");
 
-  const db = drizzle(pool, { schema });
+  const container = await new PostgreSqlContainer("postgres:17-alpine")
+    .withDatabase("homero-test")
+    .withUsername("homero_admin")
+    .withPassword("homero")
+    .withWaitStrategy(
+      Wait.forLogMessage(/database system is ready to accept connections/, 2)
+    )
+    .start();
 
+  console.log(`✓ Test database started at ${container.getConnectionUri()}`);
+
+  const connectionUri = container.getConnectionUri();
+  const db = drizzle(connectionUri, { schema });
   const migrationsPath = new URL("./migrations", import.meta.url).pathname;
 
-  await migrate(db, { migrationsFolder: migrationsPath });
+  try {
+    await migrate(db, { migrationsFolder: migrationsPath });
+    console.log("✓ Migrations completed successfully");
+  } catch (error) {
+    console.error("✗ Migration failed:", error);
+    throw error;
+  }
 
-  return { db, pool };
+  return { db, container };
 }
 
 export async function clearDatabase(db: ReturnType<typeof drizzle>) {

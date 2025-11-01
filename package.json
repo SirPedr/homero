@@ -32,10 +32,8 @@
     "db:watch": "bun run --filter @homero/db db:watch",
     "db:stop": "bun run --filter @homero/db db:stop",
     "db:down": "bun run --filter @homero/db db:down",
-    "db:test:start": "bun run --filter @homero/db db:test:start && sleep 3",
-    "db:test:stop": "bun run --filter @homero/db db:test:stop",
     "test:web": "bun test --filter web",
-    "test:server": "bun run db:test:start && TEST_DATABASE_URL=postgresql://postgres:password@localhost:5433/homero_test bun test --filter server --max-concurrency=1; bun db:test:stop"
+    "test:server": "bun test --filter server"
   },
   "dependencies": {
     "dotenv": "^17.2.2",

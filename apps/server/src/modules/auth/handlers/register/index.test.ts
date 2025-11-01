@@ -1,9 +1,24 @@
-import { db, usersTable } from "@homero/db";
-import { describe, expect, spyOn, test } from "bun:test";
-import { testDb } from "../../../../../test/test-setup";
-import { app } from "../../../../index";
+import { createTestDb, usersTable } from "@homero/db";
+import { afterAll, beforeAll, describe, expect, spyOn, test } from "bun:test";
+import { createRegisterHandler } from "./index";
+
+let container: Awaited<ReturnType<typeof createTestDb>>;
+let testDb: Awaited<ReturnType<typeof createTestDb>>["db"];
+let app: ReturnType<typeof createRegisterHandler>;
 
 describe("POST /register", () => {
+  beforeAll(async () => {
+    const testDbInstance = await createTestDb();
+    container = testDbInstance;
+    testDb = testDbInstance.db;
+
+    app = createRegisterHandler({ db: testDb });
+  });
+
+  afterAll(async () => {
+    await container?.container.stop();
+  });
+
   test("creates a new user successfully", async () => {
     const response = await app.handle(
       new Request("http://localhost/register", {
@@ -197,7 +212,7 @@ describe("POST /register", () => {
 
   describe("error handling", () => {
     test("returns 500 when database operation fails with non-duplicate error", async () => {
-      const insertSpy = spyOn(db, "insert");
+      const insertSpy = spyOn(testDb, "insert");
 
       insertSpy.mockReturnValue({
         values: async () => {

@@ -19,8 +19,8 @@
     "zod": "catalog:"
   },
   "devDependencies": {
-    "typescript": "catalog:",
     "@types/bun": "^1.2.6",
-    "tsdown": "catalog:"
+    "tsdown": "catalog:",
+    "typescript": "catalog:"
   }
 }

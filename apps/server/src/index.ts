@@ -1,8 +1,9 @@
 import { cors } from "@elysiajs/cors";
+import { db } from "@homero/db";
 import "dotenv/config";
 import { Elysia } from "elysia";
-import { registerHandler } from "./modules/auth/handlers/register";
-import { loginHandler } from "./modules/auth/handlers/login";
+import { createLoginHandler } from "./modules/auth/handlers/login";
+import { createRegisterHandler } from "./modules/auth/handlers/register";
 
 export const app = new Elysia()
   .use(
@@ -11,8 +12,8 @@ export const app = new Elysia()
       methods: ["GET", "POST", "OPTIONS"]
     })
   )
-  .use(registerHandler)
-  .use(loginHandler);
+  .use(createRegisterHandler({ db }))
+  .use(createLoginHandler({ db }));
 
 if (import.meta.main) {
   app.listen(3000, () => {
